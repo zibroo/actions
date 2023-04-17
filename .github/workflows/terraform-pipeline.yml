@@ -29,7 +29,7 @@ jobs:
         terraform workspace select dev
         terraform plan -input=false
         terraform apply --auto-approve -input=false
-
+  terraform_master2:
     name: 'Terraform apply Stage'
     runs-on: ubuntu-latest
     steps:
@@ -54,6 +54,7 @@ jobs:
         terraform workspace select stage
         terraform plan -input=false
         terraform apply --auto-approve -input=false
+  terraform_master3:
 
     name: 'Terraform apply Prod'
     runs-on: ubuntu-latest
