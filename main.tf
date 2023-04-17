@@ -27,6 +27,9 @@ resource "aws_instance" "dev" {
     Name  = "dev-ec2"
     ci-cd = "Github actions"
     new = "newtags"
+    createdBy = "alex"
+
+    
   }
 
 }
@@ -40,6 +43,8 @@ resource "aws_instance" "stage" {
     Name  = "stage-ec2"
     ci-cd = "Github actions"
     new = "newtags"
+    createdBy = "alex"
+
 
   }
 
@@ -54,6 +59,7 @@ resource "aws_instance" "prod" {
     Name  = "prod-ec2"
     ci-cd = "Github actions"
     new = "newtags"
+    createdBy = "alex"
 
   }
 
