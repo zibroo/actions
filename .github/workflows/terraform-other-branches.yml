@@ -17,9 +17,13 @@ jobs:
   terraform_dev:
     name: 'Terraform  Dev'
     runs-on: ubuntu-latest
+    env:
+      branch: git rev-parse --abbrev-ref HEAD
     steps:
     - name: Chekout branch
       uses: actions/checkout@v1
+      with:
+        ref: '$branch'
     
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
