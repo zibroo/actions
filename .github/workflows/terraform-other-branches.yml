@@ -17,7 +17,8 @@ jobs:
   terraform_dev:
     name: 'Terraform  Dev'
     runs-on: ubuntu-latest
-
+    env:
+      branch:  ${GITHUB_REF##*/}
     steps:
     # - name: branch
     #   run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
@@ -26,7 +27,7 @@ jobs:
     - name: Chekout branch
       uses: actions/checkout@v1
       with:
-        ref: ${GITHUB_REF##*/}
+        ref: ${{env.branch}}
     
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -72,8 +73,6 @@ jobs:
         terraform workspace select stage
         if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
         
-
-
   terraform_prod:
     name: 'Terraform  Prod'
     runs-on: ubuntu-latest
@@ -98,7 +97,3 @@ jobs:
       run: |
         terraform workspace select prod
         if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
-        
-
-           
-    
