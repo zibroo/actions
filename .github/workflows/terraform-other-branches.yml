@@ -13,9 +13,8 @@ on:
         default: plan
       message:
         required: true
-
+        
 jobs:
-  jobs:
   terraform_dev:
     name: 'Terraform  Dev'
     runs-on: ubuntu-latest
