@@ -27,7 +27,7 @@ resource "aws_instance" "dev" {
     Name  = "dev-ec2"
     ci-cd = "Github actions"
     new = "newtags"
-    createdBy = "john"
+    createdBy = "johneeee"
 
     
   }
