@@ -63,7 +63,8 @@ jobs:
     - name: Terraform plan and apply stage
       run: |
         terraform workspace select stage
-        terraform ${{ github.event.inputs.name }} -input=false
+        if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
+        
 
 
   terraform_prod:
@@ -89,7 +90,8 @@ jobs:
     - name: Terraform plan and apply prod
       run: |
         terraform workspace select prod
-        terraform ${{ github.event.inputs.name }} -input=false
+        if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
+        
 
            
     
