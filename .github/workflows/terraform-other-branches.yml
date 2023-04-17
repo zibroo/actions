@@ -37,7 +37,7 @@ jobs:
     - name: Terraform plan and apply dev
       run: |
         terraform workspace select dev
-        if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan-input=false ; fi
+        if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
         
         
   terraform_stage:
