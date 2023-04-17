@@ -1,7 +1,7 @@
 name: Terraform pipeline  other branches
 on:
-  push:
-    branches-ignore: ["master"]
+  # push:
+  #   branches-ignore: ["master"]
   workflow_dispatch:
     inputs:
       name:
@@ -11,9 +11,8 @@ on:
         - plan
         - apply --auto-approve
         default: plan
-      message:
         required: true
-        
+
 jobs:
   terraform_dev:
     name: 'Terraform  Dev'
