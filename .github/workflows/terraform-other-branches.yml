@@ -1,7 +1,7 @@
 name: Terraform pipeline  other branches
 on:
-  # push:
-  #   branches-ignore: ["master"]
+  push:
+    branches-ignore: ["master"]
   workflow_dispatch:
     inputs:
       name:
