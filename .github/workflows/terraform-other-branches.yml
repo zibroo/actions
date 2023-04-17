@@ -17,13 +17,16 @@ jobs:
   terraform_dev:
     name: 'Terraform  Dev'
     runs-on: ubuntu-latest
-    env:
-      branch: git rev-parse --abbrev-ref HEAD
+
     steps:
+    - name: branch
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
+      id: extract_branch
+        
     - name: Chekout branch
       uses: actions/checkout@v1
       with:
-        ref: '$branch'
+        ref: ${{ steps.extract_branch.outputs.branch }}
     
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -67,6 +70,7 @@ jobs:
     - name: Terraform plan and apply stage
       run: |
         terraform workspace select stage
+        echo ${GITHUB_REF##*/}
         if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
         
 
