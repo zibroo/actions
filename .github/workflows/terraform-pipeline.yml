@@ -30,7 +30,7 @@ jobs:
         terraform plan -input=false
         terraform apply --auto-approve -input=false
 
-    name: 'Terraform apply Dev'
+    name: 'Terraform apply Stage'
     runs-on: ubuntu-latest
     steps:
     - name: Chekout branch
@@ -55,7 +55,7 @@ jobs:
         terraform plan -input=false
         terraform apply --auto-approve -input=false
 
-    name: 'Terraform apply Dev'
+    name: 'Terraform apply Prod'
     runs-on: ubuntu-latest
     steps:
     - name: Chekout branch
