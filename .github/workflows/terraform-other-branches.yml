@@ -20,14 +20,14 @@ jobs:
     env:
       branch:  ${GITHUB_REF##*/}
     steps:
-    # - name: branch
-    #   run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
-    #   id: extract_branch  ${{ steps.extract_branch.outputs.branch }}
+    - name: Extract brach name
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
+      id: extract_branch  
         
     - name: Chekout branch
       uses: actions/checkout@v1
       with:
-        ref: ${{env.branch}}
+        ref: ${{ steps.extract_branch.outputs.branch }}
     
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
