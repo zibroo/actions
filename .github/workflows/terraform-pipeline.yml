@@ -4,7 +4,7 @@ on:
   push:
     branches: ["master"]
 jobs:
-  terraform_dev:
+  terraform_master:
     name: 'Terraform apply Dev'
     runs-on: ubuntu-latest
     steps:
@@ -30,7 +30,6 @@ jobs:
         terraform plan -input=false
         terraform apply --auto-approve -input=false
 
-  terraform_stage:
     name: 'Terraform apply Dev'
     runs-on: ubuntu-latest
     steps:
@@ -56,7 +55,6 @@ jobs:
         terraform plan -input=false
         terraform apply --auto-approve -input=false
 
-  terraform_prod:
     name: 'Terraform apply Dev'
     runs-on: ubuntu-latest
     steps:
