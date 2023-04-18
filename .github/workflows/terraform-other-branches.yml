@@ -12,22 +12,32 @@ on:
         - apply --auto-approve
         default: plan
         required: true
+      name:
+        type: choice
+        description: What branch?
+        options:  ${{ steps.get_branches.outputs.branches }}
+        default: plan
+        required: true
 
 jobs:
   terraform_dev:
     name: 'Terraform  Dev'
     runs-on: ubuntu-latest
-    env:
-      branch:  ${GITHUB_REF##*/}
+    outputs:
+      branches: ${{ steps.get_branches.outputs.branches }}
+    # env:
+    #   branch:  ${GITHUB_REF##*/}
     steps:
-    - name: Extract brach name
-      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
-      id: extract_branch  
+    # - name: Extract brach name
+    #   run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
+    #   id: extract_branch  
         
     - name: Chekout branch
       uses: actions/checkout@v1
       with:
         ref: ${{ steps.extract_branch.outputs.branch }}
+    - name: Get Branches
+      run: echo "::set-output name=branches::$(git branch | sed 's/\*\s*//')"
     
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -42,7 +52,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
     
-    - name: Terraform plan or apply dev
+    - name: Terraform plan and apply dev
       run: |
         terraform workspace select dev
         if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
@@ -68,7 +78,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
     
-    - name: Terraform plan or apply stage
+    - name: Terraform plan and apply stage
       run: |
         terraform workspace select stage
         if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
@@ -93,7 +103,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
            
-    - name: Terraform plan or apply prod
+    - name: Terraform plan and apply prod
       run: |
         terraform workspace select prod
         if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
