@@ -4,7 +4,7 @@ on:
     branches-ignore: ["master"]
   workflow_dispatch:
     inputs:
-      name:
+      action:
         type: choice
         description: What to do?
         options: 
@@ -12,11 +12,11 @@ on:
         - apply --auto-approve
         default: plan
         required: true
-      name:
+      branch:
         type: choice
         description: What branch?
         options:  ${{ steps.get_branches.outputs.branches }}
-        default: plan
+        default: master
         required: true
 
 jobs:
@@ -28,9 +28,9 @@ jobs:
     # env:
     #   branch:  ${GITHUB_REF##*/}
     steps:
-    # - name: Extract brach name
-    #   run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
-    #   id: extract_branch  
+    - name: Extract brach name
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
+      id: extract_branch  
         
     - name: Chekout branch
       uses: actions/checkout@v1
