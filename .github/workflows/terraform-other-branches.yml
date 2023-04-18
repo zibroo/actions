@@ -21,23 +21,15 @@ name: Terraform pipeline  other branches
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
+      actions:
+        description: 'What to execute'
         required: true
-        default: 'warning'
+        default: 'plan'
         type: choice
         options:
-        - info
-        - warning
-        - debug
-      tags:
-        description: 'Test scenario tags'
-        required: false
-        type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
+        - plan
+        - apply --auto-approve
+
 jobs:
   terraform_dev:
     name: 'Terraform  Dev'
