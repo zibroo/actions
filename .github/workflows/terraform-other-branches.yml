@@ -4,7 +4,7 @@ on:
     branches-ignore: ["master"]
   workflow_dispatch:
     inputs:
-      - name:
+      action:
         type: choice
         description: What to do?
         options: 
@@ -12,11 +12,11 @@ on:
         - apply --auto-approve
         default: plan
         required: true
-      - name:
+      branch:
         type: choice
         description: What branch?
         options:  ${{ steps.get_branches.outputs.branches }}
-        default: plan
+        default: master
         required: true
 
 jobs:
