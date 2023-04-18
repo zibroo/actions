@@ -1,24 +1,7 @@
 name: Terraform pipeline  other branches
-# on:
-#   # push:
-#   #   branches-ignore: ["master"]
-#   workflow_dispatch:
-#     inputs:
-#       action:
-#         type: choice
-#         description: What to do?
-#         options: 
-#         - plan
-#         - apply --auto-approve
-#         default: plan
-#         required: true
-#       branch:
-#         type: choice
-#         description: What branch?
-#         options:  ${{ steps.get_branches.outputs.branches }}
-#         default: master
-#         required: true
 on:
+  push:
+    branches-ignore: ["master"]
   workflow_dispatch:
     inputs:
       actions:
@@ -36,8 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       branches: ${{ steps.get_branches.outputs.branches }}
-    # env:
-    #   branch:  ${GITHUB_REF##*/}
     steps:
     - name: Extract brach name
       run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
