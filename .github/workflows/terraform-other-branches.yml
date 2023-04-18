@@ -1,24 +1,43 @@
 name: Terraform pipeline  other branches
+# on:
+#   # push:
+#   #   branches-ignore: ["master"]
+#   workflow_dispatch:
+#     inputs:
+#       action:
+#         type: choice
+#         description: What to do?
+#         options: 
+#         - plan
+#         - apply --auto-approve
+#         default: plan
+#         required: true
+#       branch:
+#         type: choice
+#         description: What branch?
+#         options:  ${{ steps.get_branches.outputs.branches }}
+#         default: master
+#         required: true
 on:
-  # push:
-  #   branches-ignore: ["master"]
   workflow_dispatch:
     inputs:
-      action:
-        type: choice
-        description: What to do?
-        options: 
-        - plan
-        - apply --auto-approve
-        default: plan
+      logLevel:
+        description: 'Log level'
         required: true
-      branch:
+        default: 'warning'
         type: choice
-        description: What branch?
-        options:  ${{ steps.get_branches.outputs.branches }}
-        default: master
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
         required: true
-
 jobs:
   terraform_dev:
     name: 'Terraform  Dev'
