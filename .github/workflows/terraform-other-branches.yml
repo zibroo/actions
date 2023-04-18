@@ -44,7 +44,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
     
-    - name: Terraform plan and apply dev
+    - name: Terraform plan or apply dev
       run: |
         terraform workspace select dev
         if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
@@ -70,7 +70,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
     
-    - name: Terraform plan and apply stage
+    - name: Terraform plan or apply stage
       run: |
         terraform workspace select stage
         if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
@@ -95,7 +95,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
            
-    - name: Terraform plan and apply prod
+    - name: Terraform plan or apply prod
       run: |
         terraform workspace select prod
         if [[ "${{github.event.inputs.name}}" ]]; then terraform ${{ github.event.inputs.name }} -input=false ; else terraform plan -input=false ; fi
