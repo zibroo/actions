@@ -5,6 +5,7 @@ terraform {
       version = "4.63.0"
     }
   }
+  
   backend "s3" {
     bucket               = "my-terraform-and-github-actions-pipelines"
     region               = "us-east-1"
@@ -26,10 +27,8 @@ resource "aws_instance" "dev" {
   tags = {
     Name  = "dev-ec2"
     ci-cd = "Github actions"
-    new = "tag"
-    
+    new   = "tag"
   }
-
 }
 
 resource "aws_instance" "stage" {
@@ -40,10 +39,8 @@ resource "aws_instance" "stage" {
   tags = {
     Name  = "stage-ec2"
     ci-cd = "Github actions"
-    new = "tag"
-
+    new   = "tag"
   }
-
 }
 
 resource "aws_instance" "prod" {
@@ -54,8 +51,6 @@ resource "aws_instance" "prod" {
   tags = {
     Name  = "prod-ec2"
     ci-cd = "Github actions"
-    new = "tag"
-
+    new   = "tag"
   }
-
 }
