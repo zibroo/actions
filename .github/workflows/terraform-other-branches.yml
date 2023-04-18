@@ -45,7 +45,7 @@ jobs:
     - name: Terraform plan or apply dev
       run: |
         terraform workspace select dev
-        if [[ "${{github.event.inputs.name}}" == "apply --auto-approve" ]]; then terraform apply --auto-approve -input=false ; else terraform plan -input=false ; fi
+        if [[ "${{github.event.inputs.actions}}" ]]; then terraform  "${{github.event.inputs.actions}}" -input=false ; else terraform plan -input=false ; fi
         
         
   terraform_stage:
@@ -71,7 +71,7 @@ jobs:
     - name: Terraform plan or apply stage
       run: |
         terraform workspace select stage
-        if [[ "${{github.event.inputs.name}}" == "apply --auto-approve" ]]; then terraform apply --auto-approve -input=false ; else terraform plan -input=false ; fi
+        if [[ "${{github.event.inputs.actions}}" ]]; then terraform  "${{github.event.inputs.actions}}" -input=false ; else terraform plan -input=false ; fi
         
   terraform_prod:
     name: 'Terraform  Prod'
@@ -95,7 +95,5 @@ jobs:
            
     - name: Terraform plan or apply prod
       run: |
-        echo ${{github.event.inputs.actions}}  
         terraform workspace select prod
-        
-        if [[ "${{github.event.inputs.actions}}" ]]; then terraform apply "${{github.event.inputs.actions}}" -input=false ; else terraform plan -input=false ; fi
+        if [[ "${{github.event.inputs.actions}}" ]]; then terraform  "${{github.event.inputs.actions}}" -input=false ; else terraform plan -input=false ; fi
