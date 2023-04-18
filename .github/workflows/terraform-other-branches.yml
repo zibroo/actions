@@ -11,7 +11,7 @@ on:
         type: choice
         options:
         - plan
-        - apply --auto-approve
+        - apply -auto-approve
 
 jobs:
   terraform_dev:
@@ -45,7 +45,7 @@ jobs:
     - name: Terraform plan or apply dev
       run: |
         terraform workspace select dev
-        if [[ "${{github.event.inputs.actions}}" ]]; then terraform  "${{github.event.inputs.actions}}" -input=false ; else terraform plan -input=false ; fi
+        if [[ "${{github.event.inputs.actions}}" ]]; then terraform "${{github.event.inputs.actions}}" ; else terraform plan -input=false ; fi
         
         
   terraform_stage:
